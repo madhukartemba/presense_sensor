@@ -654,7 +654,9 @@ inline void EspClickBridge::handle_packet(const uint8_t *addr, const uint8_t *da
       return;
     }
 
-    if (is_known) {
+    auto msg = (const Message *)data;
+
+    if (is_known && msg->type != PAIRING_REQUEST) {
       ESP_LOGW(tag(),
                "Strict Mode: Rejected cleartext packet from known device %s. "
                "Possible downgrade attack.",
@@ -662,10 +664,13 @@ inline void EspClickBridge::handle_packet(const uint8_t *addr, const uint8_t *da
       return;
     }
 
-    auto msg = (const Message *)data;
-
     if (msg->type == PAIRING_REQUEST) {
-      ESP_LOGI(tag(), "Pairing Request received from %s. Processing ECDH...", sender_mac.c_str());
+      if (is_known) {
+        ESP_LOGI(tag(), "Re-pairing request from known device %s. Replacing stale key...",
+                 sender_mac.c_str());
+      } else {
+        ESP_LOGI(tag(), "Pairing Request received from %s. Processing ECDH...", sender_mac.c_str());
+      }
 
       mbedtls_ecdh_context ecdh;
       mbedtls_ctr_drbg_context ctr_drbg;

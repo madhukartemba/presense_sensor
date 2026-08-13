@@ -9,9 +9,6 @@ esphome:
   includes:
     - ../esp_click_bridge/esp_click_bridge.h
     - esp_now_connector.h
-  platformio_options:
-    lib_deps:
-      - bblanchon/ArduinoJson@6.21.3
   on_boot:
     - priority: 600
       then:

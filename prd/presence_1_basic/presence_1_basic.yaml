@@ -9,7 +9,6 @@ esphome:
   platformio_options:
     lib_deps:
       - Xylopyrographer/LiteLED@3.0.1
-      - bblanchon/ArduinoJson@6.21.3 # Required to parse the MAC array
   on_boot:
     - priority: 550
       then:

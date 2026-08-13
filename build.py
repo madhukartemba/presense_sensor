@@ -107,6 +107,7 @@ def main():
             clean_cmd = [
                 str(venv_python),
                 "-m", "esphome",
+                "-s", "device_id", args.device_id,
                 "clean",
                 str(yaml_relative),
             ]

@@ -9,7 +9,7 @@ import shutil
 # --- Modified Constants ---
 VENV_DIRNAME = ".venv"
 REQUIRED_PYTHON = "python3.12"
-ESPHOME_VERSION = "2026.6.2"
+ESPHOME_VERSION = "2026.7.4"
 # --------------------------
 
 def find_project_root(start: Path) -> Path:
